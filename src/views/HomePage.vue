@@ -1,71 +1,80 @@
 // This is ver 2
 <template>
-  <div>
+  <div id="main">
      <div>
-    <el-row style="background-color: rgba(28,154,213,255);">
+    <b-row style="background-color: rgba(28,154,213,255);">
       <img style="width: 100px;" src="../assets/1567680493-cmc-global.jpg">
-    </el-row>
-    <el-row class="title">
+    </b-row>
+    <b-row class="title">
       <span class="text-title"> CURRICULUM VITAE </span>
-    </el-row>
+    </b-row>
       <div class="mg">
-        <!-- <el-col>
+        <!-- <b-col>
           <span>1111</span>
-          <el-button @click="onClickadd()">Add</el-button>
-        </el-col>
+          <b-button @click="onClickadd()">Add</b-button>
+        </b-col>
           <div class="mg-2" v-for="(item, index) in arrays" :key="index">
-            <el-input class="h25"  v-model="item.value"> </el-input>
+            <b-input class="h25"  v-model="item.value"> </b-input>
         </div> -->
-          <el-col>
+          <b-col>
             <span class="text-color div-tittle" >PERSONAL DETAILS</span>
-          </el-col>
-          <el-col class="mg">
+          </b-col>
+          <b-col class="mg">
             <div style="width: 100px;  display: inline-grid;">Name</div>
-            <el-input class="h25" style="margin-left: 50px" v-model="name"> </el-input>
-          </el-col>
-          <el-col class="mg">
+            <b-input class="h25" style="margin-left: 50px" v-model="name"> </b-input>
+          </b-col>
+          <b-col class="mg">
             <span  style="width: 100px;  display: inline-grid;">Nationality</span>
-            <el-input class="h25" style="margin-left: 50px" v-model="nationality"> </el-input>
-          </el-col>
-          <el-col class="mg">
+            <b-input class="h25" style="margin-left: 50px" v-model="nationality"> </b-input>
+          </b-col>
+          <b-col class="mg">
             <span  style="width: 100px;  display: inline-grid;">Sex</span>
             <input style="margin-left: 50px" type="radio" id="one" value="1" v-model="sex">
             <label style="margin-left: 10px" for="one">Male</label>
             <input style="margin-left: 50px" type="radio" id="two" value="0" v-model="sex">
             <label style="margin-left: 10px" for="two">Female</label>
-          </el-col>
-          <el-col class="mg">
+          </b-col>
+          <b-col class="mg">
             <span  style="width: 100px;  display: inline-grid;">Marital status</span>
               <input style="margin-left: 50px" type="radio" id="one" value="1" v-model="status">
               <label style="margin-left: 10px" for="one">Married</label>
               <input style="margin-left: 30px" type="radio" id="two" value="0" v-model="status">
               <label style="margin-left: 10px" for="two">Not married</label>
-          </el-col>
+          </b-col>
 
-          <el-col class="mg25">
+          <b-col class="mg25">
             <div class="text-color div-tittle" >OBJECTTIVE</div>
-            <el-button style="margin-left: 150px" @click="onClickAddObject()">Add</el-button>
-          </el-col>
+            <b-button style="margin-left: 150px" @click="onClickAddObject()">Add</b-button>
+          </b-col>
           <div class="mg-2" v-for="(item, index) in lstObject" :key="index">
             <div class="div-remove">
-              <el-input class="h25"   v-model="item.value"></el-input>
-              <el-button style="margin-left: 80px; margin-top: 15px;" @click="onClickRemoveObject(index)">Remove</el-button>
+              <b-input class="h25"   v-model="item.value"></b-input>
+              <b-button style="margin-left: 80px; margin-top: 15px;" @click="onClickRemoveObject(index)">Remove</b-button>
             </div>
           </div>
 
-          <el-col class="mg25">
+          <b-col class="mg25">
             <div class="text-color div-tittle" >PROFESSIONAL SUMMARY</div>
-            <el-button style="margin-left: 150px" @click="onClickAddProfession()">Add</el-button>
-          </el-col>
+            <b-button style="margin-left: 150px" @click="onClickAddProfession()">Add</b-button>
+          </b-col>
           <div class="mg-2" v-for="(item, index) in lstProfession" :key="index">
              <div class="div-remove">
-              <el-input class="h25"   v-model="item.value"></el-input>
-              <el-button style="margin-left: 80px; margin-top: 15px;" @click="onClickRemoveProfession(index)">Remove</el-button>
+              <b-input class="h25"   v-model="item.value"></b-input>
+              <b-button style="margin-left: 80px; margin-top: 15px;" @click="onClickRemoveProfession(index)">Remove</b-button>
             </div>
           </div>
           
       </div>
+      <div>
+        <b-button v-b-modal.modal-1>Launch demo modal</b-button>
+
+        <b-modal id="modal-1" title="BootstrapVue">
+          <p class="my-4">Hello from modal!</p>
+        </b-modal>
+      </div>
   </div>
+  
+   
   </div>
 </template>
 
@@ -110,8 +119,9 @@ export default class HomePage extends Vue {
   public onClickRemoveObject(index: number) {
     this.lstObject.splice(index, 1)
   }
-
+      
   public onClickAddProfession() {
+    this.$bvModal.show('modal-1')
     const item: any = {value:''};
     this.lstProfession.push(item);
   }
@@ -171,6 +181,28 @@ export default class HomePage extends Vue {
   }
   .mg25 {
     margin-top: 25px;
+  }
+
+
+  #main >>> .modal-delete {
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  }
+  #main >>> .modal-delete .btn {
+    color: #fff !important;
+    padding: 15px 15px;
+    font-size: 13px;
+  }
+  #main >>> .modal-delete .btn-secondary {
+    background: #6c757d;
+  }
+  #main >>> .modal-delete .btn-secondary:hover {
+    background: #919aa0;
+  }
+  #main >>> .modal-delete .btn-primary {
+    background: #007bff;
+  }
+  #main >>> .modal-delete .btn-primary:hover {
+    background: #005ab9;
   }
   
 </style>

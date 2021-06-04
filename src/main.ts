@@ -11,11 +11,12 @@ import i18n from './langs/i18n';
 Vue.use(VueI18n);
 
 //element UI
-import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(ElementUI);
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 Vue.config.productionTip = false;
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
 
 const mainApp = new Vue({
   router,
