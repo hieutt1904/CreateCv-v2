@@ -1,6 +1,6 @@
-import { Education } from "@/models/education";
+import { Work } from "@/models/work"
 
-export function validation(data?: Education): any {
+export function validation(data?: Work): any {
     /* eslint-disable no-alert, no-debugger */
       const result = {
         from: {
@@ -11,19 +11,19 @@ export function validation(data?: Education): any {
           rule:  data?.to !== 0 && !!data?.to && data.to > data.from ? null : false,
           msg: () => {return result.to.rule === false ? 'Please fill end time' : ''}
         },
-        school: {
-            rule:  data?.school !== ''  ? null : false,
-            msg: () => {return result.school.rule === false ? 'Please fill school' : ''}
+        company: {
+            rule:  data?.company !== ''  ? null : false,
+            msg: () => {return result.company.rule === false ? 'Please fill company' : ''}
           },
-        major: {
-            rule:  data?.major !== ''  ? null : false,
-            msg: () => {return result.major.rule === false ? 'Please fill major' : ''}
+        jobTitle: {
+            rule:  data?.jobTitle !== ''  ? null : false,
+            msg: () => {return result.jobTitle.rule === false ? 'Please fill job title' : ''}
         },
         isValid: () => {
           return result.from.rule === null
             && result.to.rule  === null
-            && result.school.rule === null
-            && result.major.rule === null
+            && result.company.rule === null
+            && result.jobTitle.rule === null
         }
       }
     

@@ -61,6 +61,7 @@
           <label style="margin-left: 10px" for="two">Not married</label>
         </b-col>
 
+        <hr/>
         <b-col class="mg25">
           <div class="text-color div-tittle">OBJECTTIVE</div>
           <b-button style="margin-left: 150px" @click="onClickOpenModal(1)"
@@ -94,6 +95,7 @@
             >
           </div>
         </div>
+
         <b-col class="mg25">
           <div class="text-color div-tittle">EDUCATION & CERTIFICATIONS</div>
           <b-button style="margin-left: 150px" @click="onClickOpenModalEdu()"
@@ -113,6 +115,141 @@
             <b-button
               style="margin-left: 80px; margin-top: 10px; display: inline"
               @click="onClickRemoveEdu(index)"
+              >Remove</b-button
+            >
+          </div>
+        </div>
+
+        <b-col class="mg25">
+          <div class="text-color div-tittle">WORK EXPERIENCE</div>
+          <b-button style="margin-left: 150px" @click="onClickOpenModalWork()"
+            >Add</b-button>
+        </b-col>
+        <div class="mg-2" v-for="(item, index) in lstWork" :key="index">
+          <div class="div-remove">
+            <b-row>
+              <b-input class="h25-v2" v-model="item.from" disabled></b-input>
+              <b-input class="h25-v2" v-model="item.to" disabled></b-input>
+            </b-row>
+            <b-row>
+              <b-input class="h25-v3" v-model="item.company" disabled></b-input>
+              <b-input class="h25-v3" v-model="item.jobTitle" disabled></b-input>
+            </b-row>
+            <b-button
+              style="margin-left: 80px; margin-top: 10px; display: inline"
+              @click="onClickRemoveWork(index)"
+              >Remove</b-button
+            >
+          </div>
+        </div>
+        <hr/>
+        <b-col class="mg25">
+          <div class="text-color div-tittle" style="display: table-row !important">TECHNOLOGY AND SOFTWARE DEVELOPMENT SKILLS</div>
+          <div>Level: 1-4 Aware (Basic, need to practice more); 5-7 Knowledgeable (Intermediate, can use it at work); 8-10 Proficient (Advanced, very good to use it at work)</div>
+        </b-col>
+
+        <b-col class="mg25" style="display: inline-flex;">
+          <b-row style="margin-left: 200px; font-weight: bold;">Competencies</b-row>
+          <b-row style="margin-left: 230px; font-weight: bold;">Level</b-row>
+        </b-col>
+
+        <b-col class="mg25">
+          <div class="text-color div-tittle">Programing Language</div>
+          <b-button style="margin-left: 110px" @click="onClickOpenModalSkill(1)"
+            >Add</b-button>
+        </b-col>
+       <div class="mg-2" v-for="(item, index) in lstLang" :key="index">
+          <div class="div-remove">
+            <b-input class="h25" v-model="item.competencies" disabled></b-input>
+            <b-input class="h25" style="width: 150px" v-model="item.level" disabled></b-input>
+            <b-button
+              style="margin-left: 80px; margin-top: 10px; display: inline"
+              @click="onClickRemoveSkill(index, 1)"
+              >Remove</b-button
+            >
+          </div>
+        </div>
+
+        <b-col class="mg25">
+          <div class="text-color div-tittle">Technology & Framework</div>
+          <b-button style="margin-left: 110px" @click="onClickOpenModalSkill(2)"
+            >Add</b-button>
+        </b-col>
+       <div class="mg-2" v-for="(item, index) in lstTech" :key="index">
+          <div class="div-remove">
+            <b-input class="h25" v-model="item.competencies" disabled></b-input>
+            <b-input class="h25" style="width: 150px" v-model="item.level" disabled></b-input>
+            <b-button
+              style="margin-left: 80px; margin-top: 10px; display: inline"
+              @click="onClickRemoveSkill(index, 2)"
+              >Remove</b-button
+            >
+          </div>
+        </div>
+
+        <b-col class="mg25">
+          <div class="text-color div-tittle">Database System</div>
+          <b-button style="margin-left: 110px" @click="onClickOpenModalSkill(3)"
+            >Add</b-button>
+        </b-col>
+       <div class="mg-2" v-for="(item, index) in lstDatabase" :key="index">
+          <div class="div-remove">
+            <b-input class="h25" v-model="item.competencies" disabled></b-input>
+            <b-input class="h25" style="width: 150px" v-model="item.level" disabled></b-input>
+            <b-button
+              style="margin-left: 80px; margin-top: 10px; display: inline"
+              @click="onClickRemoveSkill(index, 3)"
+              >Remove</b-button
+            >
+          </div>
+        </div>
+
+        <b-col class="mg25">
+          <div class="text-color div-tittle">Development Tool</div>
+          <b-button style="margin-left: 110px" @click="onClickOpenModalSkill(4)"
+            >Add</b-button>
+        </b-col>
+       <div class="mg-2" v-for="(item, index) in lstTool" :key="index">
+          <div class="div-remove">
+            <b-input class="h25" v-model="item.competencies" disabled></b-input>
+            <b-input class="h25" style="width: 150px" v-model="item.level" disabled></b-input>
+            <b-button
+              style="margin-left: 80px; margin-top: 10px; display: inline"
+              @click="onClickRemoveSkill(index, 4)"
+              >Remove</b-button
+            >
+          </div>
+        </div>
+
+        <b-col class="mg25">
+          <div class="text-color div-tittle">Operating System</div>
+          <b-button style="margin-left: 110px" @click="onClickOpenModalSkill(5)"
+            >Add</b-button>
+        </b-col>
+       <div class="mg-2" v-for="(item, index) in lstSystem" :key="index">
+          <div class="div-remove">
+            <b-input class="h25" v-model="item.competencies" disabled></b-input>
+            <b-input class="h25" style="width: 150px" v-model="item.level" disabled></b-input>
+            <b-button
+              style="margin-left: 80px; margin-top: 10px; display: inline"
+              @click="onClickRemoveSkill(index, 5)"
+              >Remove</b-button
+            >
+          </div>
+        </div>
+        <hr/>
+        <b-col class="mg25">
+          <div class="text-color div-tittle">PROFESSIONAL SUMMARY</div>
+          <b-button style="margin-left: 150px" @click="onClickOpenModal(2)"
+            >Add</b-button
+          >
+        </b-col>
+        <div class="mg-2" v-for="(item, index) in lstProfession" :key="index">
+          <div class="div-remove">
+            <b-input class="h25" v-model="item.value" disabled></b-input>
+            <b-button
+              style="margin-left: 80px; margin-top: 10px; display: inline"
+              @click="onClickRemoveProfession(index)"
               >Remove</b-button
             >
           </div>
@@ -141,10 +278,10 @@
         <b-modal
           id="modal-edu"
           ref="modal"
-          title="Submit Your Infor"
+          title="Submit Your Education & Certifications"
           @ok="handleOkEdu"
         >
-          <form ref="form" @submit.stop.prevent="onClickAddProfession">
+          <form ref="form" @submit.stop.prevent="onClickAddEdu">
             <b-form-group>
               <label for="from"> From</label>
               <b-form-input
@@ -184,6 +321,80 @@
           </form>
         </b-modal>
       </div>
+      <div>
+        <b-modal
+          id="modal-work"
+          ref="modal"
+          title="Submit Your Work Experience"
+          @ok="handleOkWork"
+        >
+          <form ref="form" @submit.stop.prevent="onClickAddWork">
+            <b-form-group>
+              <label for="from"> From</label>
+              <b-form-input
+                id="from"
+                v-model="newDataWork.from"
+                type="number"
+                :state="validationWork.from.rule"
+                v-b-tooltip.hover.right.v-danger
+                :title="$t(validationWork.from.msg())"
+              ></b-form-input>
+              <label for="to"> To</label>
+              <b-form-input
+                id="to"
+                type="number"
+                v-model="newDataWork.to"
+                :state="validationWork.to.rule"
+                v-b-tooltip.hover.right.v-danger
+                :title="$t(validationWork.to.msg())"
+              ></b-form-input>
+              <label for="company"> Company</label>
+              <b-form-input
+                id="company"
+                v-model="newDataWork.company"
+                :state="validationWork.company.rule"
+                v-b-tooltip.hover.right.v-danger
+                :title="$t(validationWork.company.msg())"
+              ></b-form-input>
+              <label for="jobtitle">JobTitle</label>
+              <b-form-input
+                id="jobtitle"
+                v-model="newDataWork.jobTitle"
+                :state="validationWork.jobTitle.rule"
+                v-b-tooltip.hover.right.v-danger
+                :title="$t(validationWork.jobTitle.msg())"
+              ></b-form-input>
+            </b-form-group>
+          </form>
+        </b-modal>
+      </div>
+      <div>
+        <b-modal
+          id="modal-skill"
+          ref="modal"
+          title="Submit Your Infor"
+          @ok="handleSkillOk"
+        >
+          <form ref="form" @submit.stop.prevent="onClickAddSkill">
+            <b-form-group>
+              <label>Competencies</label>
+              <b-form-input
+                v-model="newSkill.competencies"
+                :state="validationSkill.competencies.rule"
+                v-b-tooltip.hover.right.v-danger
+                :title="$t(validationSkill.competencies.msg())"
+              ></b-form-input>
+              <label>Level</label>
+              <b-form-input
+                v-model="newSkill.level"
+                :state="validationSkill.level.rule"
+                v-b-tooltip.hover.right.v-danger
+                :title="$t(validationSkill.level.msg())"
+              ></b-form-input>
+            </b-form-group>
+          </form>
+        </b-modal>
+      </div>
     </div>
   </div>
 </template>
@@ -201,8 +412,12 @@ import AdminLayout from "../layouts/AdminLayout.vue";
 import CustomTable2 from "../components/CustomTable2/index.vue";
 import * as validate from "./rule";
 import * as validateEdu from "./eduRule";
+import * as validateWork from "./workRule";
+import * as validateSkill from "./skillRule";
 import { Education } from "@/models/education";
 import { Work } from "@/models/work";
+import { Skill } from "@/models/skill";
+import { Language } from "@/models/languages";
 
 @Component({
   components: {
@@ -223,10 +438,28 @@ export default class HomePage extends Vue {
   public lstProfession: any[] = [];
   public lstEdu: Education[] = [];
   public lstWork: Work[] = [];
+  public lstLang: Skill[] = [];
+  public lstTech: Skill[] = [];
+  public lstDatabase: Skill[] = [];
+  public lstTool: Skill[] = [];
+  public lstSystem: Skill[] = [];
+  public lstLanguages: any[] = [{
+    language: 'EL',
+    level: 2,
+    note: 'Note'
+  }];
+
   public isValidate = false;
+  public isValidateEdu = false;
+  public isValidateWork = false;
+  public isValidateSkill = false;
   public data = "";
   public modal = 0;
+  public typeSkill  = 0;
+
   public newDataEdu = new Education();
+  public newDataWork =  new Work();
+  public newSkill = new Skill();
 
   get validation(): any {
     return !this.isValidate
@@ -234,10 +467,23 @@ export default class HomePage extends Vue {
       : validate.validation(this.data);
   }
   get validationEdu(): any {
-    return !this.isValidate
+    return !this.isValidateEdu
       ? validateEdu.validation()
       : validateEdu.validation(this.newDataEdu);
   }
+
+  get validationSkill(): any {
+    return !this.isValidateSkill
+      ? validateSkill.validation()
+      : validateSkill.validation(this.newSkill);
+  }
+
+  get validationWork(): any {
+    return !this.isValidateWork
+      ? validateWork.validation()
+      : validateWork.validation(this.newDataWork);
+  }
+  
   public onClickRemoveObject(index: number) {
     this.lstObject.splice(index, 1);
   }
@@ -251,6 +497,16 @@ export default class HomePage extends Vue {
     this.newDataEdu = new Education();
     this.$bvModal.show("modal-edu");
   }
+  public onClickOpenModalWork() {
+    this.newDataWork = new Work();
+    this.$bvModal.show("modal-work");
+  }
+
+  public onClickOpenModalSkill(type: any) {
+    this.typeSkill = type;
+    this.newSkill = new Skill();
+    this.$bvModal.show("modal-skill");
+  }
 
   public handleOk(bvModalEvt: any) {
     // Prevent modal from closing
@@ -258,21 +514,67 @@ export default class HomePage extends Vue {
     // Trigger submit handler
     this.onClickAddProfessionAndObject();
   }
+
   public handleOkEdu(bvModalEvt: any) {
     // Prevent modal from closing
     bvModalEvt.preventDefault();
     // Trigger submit handler
     this.onClickAddEdu();
   }
+  
+  public handleSkillOk(bvModalEvt: any) {
+    // Prevent modal from closing
+    bvModalEvt.preventDefault();
+    // Trigger submit handler
+    this.onClickAddSkill();
+  }
+  public onClickAddSkill() {
+    this.isValidateSkill = true;
+    if (!this.validationSkill.isValid()) {
+      return;
+    }
+    if(this.typeSkill === 1) {
+      this.lstLang.push(this.newSkill);
+    } else if (this.typeSkill === 2) {
+      this.lstTech.push(this.newSkill);
+    } else if (this.typeSkill === 3) {
+      this.lstDatabase.push(this.newSkill);
+    } else if (this.typeSkill === 4) {
+      this.lstTool.push(this.newSkill);
+    } else {
+      this.lstSystem.push(this.newSkill);
+    }
+
+    this.$nextTick(() => {
+      this.$bvModal.hide("modal-skill");
+    });
+  }
+  public handleOkWork(bvModalEvt: any) {
+    // Prevent modal from closing
+    bvModalEvt.preventDefault();
+    // Trigger submit handler
+    this.onClickAddWork();
+  }
 
   public onClickAddEdu() {
-    this.isValidate = true;
+    this.isValidateEdu = true;
     if (!this.validationEdu.isValid()) {
       return;
     }
     this.lstEdu.push(this.newDataEdu);
     this.$nextTick(() => {
       this.$bvModal.hide("modal-edu");
+    });
+  }
+
+  public onClickAddWork() {
+    this.isValidateWork = true;
+    if (!this.validationWork.isValid()) {
+      return;
+    }
+    this.lstWork.push(this.newDataWork);
+    this.$nextTick(() => {
+      this.$bvModal.hide("modal-work");
     });
   }
 
@@ -302,6 +604,23 @@ export default class HomePage extends Vue {
 
   public onClickRemoveEdu(index: number) {
     this.lstEdu.splice(index, 1);
+  }
+
+  public onClickRemoveWork(index: number) {
+    this.lstWork.splice(index, 1);
+  }
+   public onClickRemoveSkill(index: number, type: number) {
+    if(type === 1) {
+      this.lstLang.splice(index, 1);
+    } else if (type === 2) {
+      this.lstTech.splice(index, 1);
+    } else if (type === 3) {
+      this.lstDatabase.splice(index, 1);
+    } else if (type === 4) {
+      this.lstTool.splice(index, 1);
+    } else {
+      this.lstSystem.splice(index, 1);
+    }
   }
 }
 </script>
