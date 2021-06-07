@@ -1,7 +1,6 @@
-import Vue from 'vue';
+import Vue  from 'vue';
 import Vuex from 'vuex';
 import mainApp from '../main';
-
 Vue.use(Vuex);
 
 export default new Vuex.Store({

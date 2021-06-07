@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
-
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 //store
 import store from './store';
 
@@ -13,7 +14,9 @@ Vue.use(VueI18n);
 //element UI
 import 'element-ui/lib/theme-chalk/index.css';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-
+//element UI
+import ElementUI from 'element-ui';
+Vue.use(ElementUI);
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
