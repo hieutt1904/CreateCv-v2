@@ -1,3 +1,4 @@
+/* eslint-disable */ 
 export class Language {
     public language: string = '';
     public level: number = 1;

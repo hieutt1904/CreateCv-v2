@@ -239,22 +239,53 @@
         </div>
         <hr/>
         <b-col class="mg25">
-          <div class="text-color div-tittle">PROFESSIONAL SUMMARY</div>
-          <b-button style="margin-left: 150px" @click="onClickOpenModal(2)"
+          <div class="text-color div-tittle">LANGUAGES</div>
+          <b-button style="margin-left: 150px" @click="onClickOpenModalLang"
             >Add</b-button
           >
         </b-col>
-        <div class="mg-2" v-for="(item, index) in lstProfession" :key="index">
+        <b-col class="mg25" style="display: inline-flex;">
+          <b-row style="margin-left: 140px; font-weight: bold;">Language</b-row>
+          <b-row style="margin-left: 150px; font-weight: bold;">Level</b-row>
+          <b-row style="margin-left: 185px; font-weight: bold;">Note</b-row>
+        </b-col>
+        <div class="mg-2" v-for="(item, index) in lstLanguages" :key="index">
           <div class="div-remove">
-            <b-input class="h25" v-model="item.value" disabled></b-input>
+            <b-input class="h25" v-model="item.language" disabled></b-input>
+            <b-input class="h25" v-model="item.noteLevel" disabled></b-input>
+            <b-input class="h25" v-model="item.note" disabled></b-input>
             <b-button
               style="margin-left: 80px; margin-top: 10px; display: inline"
-              @click="onClickRemoveProfession(index)"
+              @click="onClickRemoveLang(index)"
+              >Remove</b-button
+            >
+          </div>
+        </div>
+        <b-col class="mg25">
+          <div class="text-color div-tittle">LANGUAGES</div>
+          <b-button style="margin-left: 150px" @click="onClickOpenModalLang"
+            >Add</b-button
+          >
+        </b-col>
+        <b-col class="mg25" style="display: inline-flex;">
+          <b-row style="margin-left: 140px; font-weight: bold;">Language</b-row>
+          <b-row style="margin-left: 150px; font-weight: bold;">Level</b-row>
+          <b-row style="margin-left: 185px; font-weight: bold;">Note</b-row>
+        </b-col>
+        <div class="mg-2" v-for="(item, index) in lstLanguages" :key="index">
+          <div class="div-remove">
+            <b-input class="h25" v-model="item.language" disabled></b-input>
+            <b-input class="h25" v-model="item.noteLevel" disabled></b-input>
+            <b-input class="h25" v-model="item.note" disabled></b-input>
+            <b-button
+              style="margin-left: 80px; margin-top: 10px; display: inline"
+              @click="onClickRemoveLang(index)"
               >Remove</b-button
             >
           </div>
         </div>
       </div>
+
       <div>
         <b-modal
           id="modal-profession"
@@ -395,6 +426,33 @@
           </form>
         </b-modal>
       </div>
+
+      <div>
+        <b-modal
+          id="modal-language"
+          ref="modal"
+          title="Submit Your Infor"
+          @ok="handleLangOk"
+        >
+          <form ref="form" @submit.stop.prevent="onClickAddLang">
+            <b-form-group>
+              <label>Language</label>
+              <b-form-input
+                v-model="newLanguage.language"
+                :state="validationLang.language.rule"
+                v-b-tooltip.hover.right.v-danger
+                :title="$t(validationLang.language.msg())"
+              ></b-form-input>
+              <label>Level</label>
+              <b-form-select style="width: 100%;height: 35px" v-model="newLanguage.level" :options="optionLang" ></b-form-select>
+              <label>Note</label>
+              <b-form-input
+                v-model="newLanguage.note"
+              ></b-form-input>
+            </b-form-group>
+          </form>
+        </b-modal>
+      </div>
     </div>
   </div>
 </template>
@@ -414,6 +472,7 @@ import * as validate from "./rule";
 import * as validateEdu from "./eduRule";
 import * as validateWork from "./workRule";
 import * as validateSkill from "./skillRule";
+import * as validateLang from "./langRule";
 import { Education } from "@/models/education";
 import { Work } from "@/models/work";
 import { Skill } from "@/models/skill";
@@ -443,16 +502,17 @@ export default class HomePage extends Vue {
   public lstDatabase: Skill[] = [];
   public lstTool: Skill[] = [];
   public lstSystem: Skill[] = [];
-  public lstLanguages: any[] = [{
-    language: 'EL',
-    level: 2,
-    note: 'Note'
-  }];
+  public lstLanguages: Language[] = [];
+  public optionLang = [{value: 1, text: 'Beginner'},
+                      {value: 2, text: 'Intermediate'},
+                      {value: 3, text: 'Advanced'},
+                      {value: 4, text: 'Native'}]
 
   public isValidate = false;
   public isValidateEdu = false;
   public isValidateWork = false;
   public isValidateSkill = false;
+  public isValidateLang = false;
   public data = "";
   public modal = 0;
   public typeSkill  = 0;
@@ -460,6 +520,7 @@ export default class HomePage extends Vue {
   public newDataEdu = new Education();
   public newDataWork =  new Work();
   public newSkill = new Skill();
+  public newLanguage = new Language();
 
   get validation(): any {
     return !this.isValidate
@@ -483,6 +544,12 @@ export default class HomePage extends Vue {
       ? validateWork.validation()
       : validateWork.validation(this.newDataWork);
   }
+
+  get validationLang(): any {
+    return !this.isValidateLang
+      ? validateLang.validation()
+      : validateLang.validation(this.newLanguage);
+  }
   
   public onClickRemoveObject(index: number) {
     this.lstObject.splice(index, 1);
@@ -493,10 +560,12 @@ export default class HomePage extends Vue {
     this.modal = modal;
     this.$bvModal.show("modal-profession");
   }
+
   public onClickOpenModalEdu() {
     this.newDataEdu = new Education();
     this.$bvModal.show("modal-edu");
   }
+
   public onClickOpenModalWork() {
     this.newDataWork = new Work();
     this.$bvModal.show("modal-work");
@@ -506,6 +575,11 @@ export default class HomePage extends Vue {
     this.typeSkill = type;
     this.newSkill = new Skill();
     this.$bvModal.show("modal-skill");
+  }
+
+  public onClickOpenModalLang() {
+    this.newLanguage = new Language();
+    this.$bvModal.show("modal-language");
   }
 
   public handleOk(bvModalEvt: any) {
@@ -528,11 +602,31 @@ export default class HomePage extends Vue {
     // Trigger submit handler
     this.onClickAddSkill();
   }
+
+  public handleLangOk(bvModalEvt: any) {
+    // Prevent modal from closing
+    bvModalEvt.preventDefault();
+    // Trigger submit handler
+    this.onClickAddLang();
+  }
+
+  public onClickAddLang() {
+    this.isValidateLang = true;
+    if(!this.validationLang.isValid()) {
+      return;
+    }
+    this.lstLanguages.push(this.newLanguage);
+    this.$nextTick(() => {
+      this.$bvModal.hide("modal-language");
+    });
+  }
+
   public onClickAddSkill() {
     this.isValidateSkill = true;
     if (!this.validationSkill.isValid()) {
       return;
     }
+
     if(this.typeSkill === 1) {
       this.lstLang.push(this.newSkill);
     } else if (this.typeSkill === 2) {
@@ -609,7 +703,8 @@ export default class HomePage extends Vue {
   public onClickRemoveWork(index: number) {
     this.lstWork.splice(index, 1);
   }
-   public onClickRemoveSkill(index: number, type: number) {
+
+  public onClickRemoveSkill(index: number, type: number) {
     if(type === 1) {
       this.lstLang.splice(index, 1);
     } else if (type === 2) {
@@ -622,6 +717,10 @@ export default class HomePage extends Vue {
       this.lstSystem.splice(index, 1);
     }
   }
+
+  public onClickRemoveLang(index: number) {
+      this.lstLanguages.splice(index, 1);
+    }
 }
 </script>
 
