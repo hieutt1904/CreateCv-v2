@@ -1,6 +1,8 @@
+
+/* eslint-disable */ 
 export class Education {
-    from: number = 0;
-    to: number = 0;
+    fromDate: string = '';
+    toDate: string = '';
     school: string = '';
     major: string = '';
     constructor(init?: Partial<Education>) {

@@ -1,7 +1,7 @@
 /* eslint-disable */ 
 export class Work {
-    public from: number = 0;
-    public to: number = 0;
+    public fromDate: string = '';
+    public toDate: string = '';
     public company: string = '';
     public jobTitle: string = '';
 

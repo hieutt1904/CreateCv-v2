@@ -58,7 +58,7 @@
             value="0"
             v-model="status"
           />
-          <label style="margin-left: 10px" for="two">Not married</label>
+          <label style="margin-left: 10px" for="two">Single</label>
         </b-col>
 
         <hr/>
@@ -105,8 +105,8 @@
         <div class="mg-2" v-for="(item, index) in lstEdu" :key="index">
           <div class="div-remove">
             <b-row>
-              <b-input class="h25-v2" v-model="item.from" disabled></b-input>
-              <b-input class="h25-v2" v-model="item.to" disabled></b-input>
+              <b-input class="h25-v2" v-model="item.fromDate" disabled></b-input>
+              <b-input class="h25-v2" v-model="item.toDate" disabled></b-input>
             </b-row>
             <b-row>
               <b-input class="h25-v3" v-model="item.school" disabled></b-input>
@@ -128,8 +128,8 @@
         <div class="mg-2" v-for="(item, index) in lstWork" :key="index">
           <div class="div-remove">
             <b-row>
-              <b-input class="h25-v2" v-model="item.from" disabled></b-input>
-              <b-input class="h25-v2" v-model="item.to" disabled></b-input>
+              <b-input class="h25-v2" v-model="item.fromDate" disabled></b-input>
+              <b-input class="h25-v2" v-model="item.toDate" disabled></b-input>
             </b-row>
             <b-row>
               <b-input class="h25-v3" v-model="item.company" disabled></b-input>
@@ -262,28 +262,76 @@
           </div>
         </div>
         <b-col class="mg25">
-          <div class="text-color div-tittle">LANGUAGES</div>
-          <b-button style="margin-left: 150px" @click="onClickOpenModalLang"
+          <div class="text-color div-tittle">PROJECT LIST</div>
+          <b-button style="margin-left: 150px" @click="onClickOpenModalProject"
             >Add</b-button
           >
         </b-col>
-        <b-col class="mg25" style="display: inline-flex;">
-          <b-row style="margin-left: 140px; font-weight: bold;">Language</b-row>
-          <b-row style="margin-left: 150px; font-weight: bold;">Level</b-row>
-          <b-row style="margin-left: 185px; font-weight: bold;">Note</b-row>
-        </b-col>
-        <div class="mg-2" v-for="(item, index) in lstLanguages" :key="index">
-          <div class="div-remove">
-            <b-input class="h25" v-model="item.language" disabled></b-input>
-            <b-input class="h25" v-model="item.noteLevel" disabled></b-input>
-            <b-input class="h25" v-model="item.note" disabled></b-input>
-            <b-button
-              style="margin-left: 80px; margin-top: 10px; display: inline"
-              @click="onClickRemoveLang(index)"
-              >Remove</b-button
-            >
+        <b-row>
+          <b-col></b-col>
+        </b-row>
+        <div class="mg-2" v-for="(item, index) in lstProject" :key="index">
+          <div style="display: block;
+                      width: 700px;">
+            <b-col>
+              <b-row class="mg-b-15">
+                <b-col>Project Name</b-col>
+                <b-col><b-input class="h25-v4" v-model="item.projectName" disabled></b-input></b-col>
+              </b-row>
+              <b-row class="mg-b-15">
+                <b-col>Execution Time</b-col>
+                <b-col><b-input class="h25-v4" v-model="item.executionTime" disabled></b-input></b-col>
+              </b-row>
+              <b-row class="mg-b-15">
+                <b-col>Project Description</b-col>
+                <b-col><b-input class="h25-v4" v-model="item.projectDesc" disabled></b-input></b-col>
+              </b-row>
+              <b-row class="mg-b-15">
+                <b-col>Team size</b-col>
+                <b-col><b-input class="h25-v4" v-model="item.teamSize" disabled></b-input></b-col>
+              </b-row>
+              <b-row class="mg-b-15">
+                <b-col>Role</b-col>
+                <b-col><b-input class="h25-v4" v-model="item.role" disabled></b-input></b-col>
+              </b-row>
+              <b-row class="mg-b-15">
+                <b-col>Responsibilities</b-col>
+                <b-col><b-textarea class="h25-v4" v-model="item.responsibilities"  rows="3" disabled></b-textarea></b-col>
+              </b-row>
+              <b-row class="mg-b-15">
+                <b-col>Programming Languages</b-col>
+                <b-col><b-input class="h25-v4" v-model="item.programmingLanguage" disabled></b-input></b-col>
+              </b-row>
+              <b-row class="mg-b-15">
+                <b-col>Database</b-col>
+                <b-col><b-input class="h25-v4" v-model="item.database" disabled></b-input></b-col>
+              </b-row>
+              <b-row class="mg-b-15">
+                <b-col>Tools</b-col>
+                <b-col><b-input class="h25-v4" v-model="item.tools" disabled></b-input></b-col>
+              </b-row>
+              <b-row class="mg-b-15">
+                <b-col>Used technologies:</b-col>
+                <b-col><b-input class="h25-v4" v-model="item.technologies" disabled></b-input></b-col>
+              </b-row>  
+            </b-col>         
+            
+            <b-col>
+                <b-button
+                style="margin-left: 80px; margin-top: 10px; display: inline"
+                @click="onClickRemoveProject(index)"
+                >Remove</b-button>
+            </b-col>
+            
           </div>
         </div>
+        <hr/>
+        <b-col>
+                <b-button
+                style="margin-left: 40%; margin-top: 10px; display: inline"
+                @click="onClickPrint"
+                >Print</b-button>
+            </b-col>
       </div>
 
       <div>
@@ -315,23 +363,21 @@
           <form ref="form" @submit.stop.prevent="onClickAddEdu">
             <b-form-group>
               <label for="from"> From</label>
-              <b-form-input
+              <b-form-datepicker
                 id="from"
-                v-model="newDataEdu.from"
-                type="number"
+                v-model="newDataEdu.fromDate"
                 :state="validationEdu.from.rule"
                 v-b-tooltip.hover.right.v-danger
                 :title="$t(validationEdu.from.msg())"
-              ></b-form-input>
+              ></b-form-datepicker>
               <label for="to"> To</label>
-              <b-form-input
+              <b-form-datepicker
                 id="to"
-                type="number"
-                v-model="newDataEdu.to"
+                v-model="newDataEdu.toDate"
                 :state="validationEdu.to.rule"
                 v-b-tooltip.hover.right.v-danger
                 :title="$t(validationEdu.to.msg())"
-              ></b-form-input>
+              ></b-form-datepicker>
               <label for="school"> School</label>
               <b-form-input
                 id="school"
@@ -361,24 +407,21 @@
         >
           <form ref="form" @submit.stop.prevent="onClickAddWork">
             <b-form-group>
-              <label for="from"> From</label>
-              <b-form-input
+              <b-form-datepicker
                 id="from"
-                v-model="newDataWork.from"
-                type="number"
+                v-model="newDataWork.fromDate"
                 :state="validationWork.from.rule"
                 v-b-tooltip.hover.right.v-danger
                 :title="$t(validationWork.from.msg())"
-              ></b-form-input>
+              ></b-form-datepicker>
               <label for="to"> To</label>
-              <b-form-input
+              <b-form-datepicker
                 id="to"
-                type="number"
-                v-model="newDataWork.to"
+                v-model="newDataWork.toDate"
                 :state="validationWork.to.rule"
                 v-b-tooltip.hover.right.v-danger
                 :title="$t(validationWork.to.msg())"
-              ></b-form-input>
+              ></b-form-datepicker>
               <label for="company"> Company</label>
               <b-form-input
                 id="company"
@@ -453,6 +496,99 @@
           </form>
         </b-modal>
       </div>
+
+      <div>
+        <b-modal
+          id="modal-project"
+          ref="modal"
+          title="Submit Your Infor"
+          @ok="handleProjectOk"
+        >
+          <form ref="form" @submit.stop.prevent="onClickAddProject">
+            <b-form-group>
+              <label>Project Name</label>
+              <b-form-input
+                v-model="newProject.projectName"
+                :state="validationProject.projectName.rule"
+                v-b-tooltip.hover.right.v-danger
+                :title="$t(validationProject.projectName.msg())"
+              ></b-form-input>
+              <label>Start</label>
+              <b-form-datepicker
+                v-model="newProject.start"
+                :state="validationProject.start.rule"
+                v-b-tooltip.hover.right.v-danger
+                :title="$t(validationProject.start.msg())"
+              ></b-form-datepicker>
+              <label>End</label>
+              <b-form-datepicker
+                v-model="newProject.end"
+                :state="validationProject.end.rule"
+                v-b-tooltip.hover.right.v-danger
+                :title="$t(validationProject.end.msg())"
+              ></b-form-datepicker>
+              <label>Project Description</label>
+              <b-form-input
+                v-model="newProject.projectDesc"
+                :state="validationProject.projectDesc.rule"
+                v-b-tooltip.hover.right.v-danger
+                :title="$t(validationProject.projectDesc.msg())"
+              ></b-form-input>
+              <label>Team size</label>
+              <b-form-input
+                v-model="newProject.teamSize"
+                :state="validationProject.teamSize.rule"
+                v-b-tooltip.hover.right.v-danger
+                :title="$t(validationProject.teamSize.msg())"
+                type="number"
+              ></b-form-input>
+              <label>Role</label>
+              <b-form-input
+                v-model="newProject.role"
+                :state="validationProject.role.rule"
+                v-b-tooltip.hover.right.v-danger
+                :title="$t(validationProject.role.msg())"
+              ></b-form-input>
+              <label>Responsibilities</label>
+              <b-form-textarea
+                v-model="newProject.responsibilities"
+                rows="3"
+                :state="validationProject.responsibilities.rule"
+                v-b-tooltip.hover.right.v-danger
+                :title="$t(validationProject.responsibilities.msg())"
+              ></b-form-textarea>
+              <label>Programming Languages</label>
+              <b-form-input
+                v-model="newProject.programmingLanguage"
+                :state="validationProject.programmingLanguage.rule"
+                v-b-tooltip.hover.right.v-danger
+                :title="$t(validationProject.programmingLanguage.msg())"
+              ></b-form-input>
+              <label>Database</label>
+              <b-form-input
+                v-model="newProject.database"
+                :state="validationProject.database.rule"
+                v-b-tooltip.hover.right.v-danger
+                :title="$t(validationProject.database.msg())"
+              ></b-form-input>
+              <label>Tools</label>
+              <b-form-input
+                v-model="newProject.tools"
+                :state="validationProject.tools.rule"
+                v-b-tooltip.hover.right.v-danger
+                :title="$t(validationProject.tools.msg())"
+              ></b-form-input>
+              <label>Used technologies</label>
+              <b-form-input
+                v-model="newProject.technologies"
+                :state="validationProject.technologies.rule"
+                v-b-tooltip.hover.right.v-danger
+                :title="$t(validationProject.technologies.msg())"
+              ></b-form-input>
+            </b-form-group>
+          </form>
+        </b-modal>
+      </div>
     </div>
   </div>
 </template>
@@ -473,10 +609,13 @@ import * as validateEdu from "./eduRule";
 import * as validateWork from "./workRule";
 import * as validateSkill from "./skillRule";
 import * as validateLang from "./langRule";
+import * as validateProject from "./projectRule";
 import { Education } from "@/models/education";
 import { Work } from "@/models/work";
 import { Skill } from "@/models/skill";
 import { Language } from "@/models/languages";
+import { Project } from "@/models/project";
+import { axiosCreator } from "@/base/customAxios";
 
 @Component({
   components: {
@@ -484,6 +623,7 @@ import { Language } from "@/models/languages";
     CustomTable2,
   },
 })
+/* eslint-disable */ 
 export default class HomePage extends Vue {
   $router: any;
   $store: any;
@@ -502,7 +642,8 @@ export default class HomePage extends Vue {
   public lstDatabase: Skill[] = [];
   public lstTool: Skill[] = [];
   public lstSystem: Skill[] = [];
-  public lstLanguages: Language[] = [];
+  public lstLanguages: Language[] = [new Language()];
+  public lstProject: Project[] = [new Project()]
   public optionLang = [{value: 1, text: 'Beginner'},
                       {value: 2, text: 'Intermediate'},
                       {value: 3, text: 'Advanced'},
@@ -513,6 +654,8 @@ export default class HomePage extends Vue {
   public isValidateWork = false;
   public isValidateSkill = false;
   public isValidateLang = false;
+  public isValidateProject = false;
+
   public data = "";
   public modal = 0;
   public typeSkill  = 0;
@@ -521,6 +664,12 @@ export default class HomePage extends Vue {
   public newDataWork =  new Work();
   public newSkill = new Skill();
   public newLanguage = new Language();
+  public newProject = new Project();
+  
+  axios = axiosCreator();
+  API = {
+    print: "/cv-creator/demo-cv"
+  };
 
   get validation(): any {
     return !this.isValidate
@@ -549,6 +698,12 @@ export default class HomePage extends Vue {
     return !this.isValidateLang
       ? validateLang.validation()
       : validateLang.validation(this.newLanguage);
+  }
+
+   get validationProject(): any {
+    return !this.isValidateProject
+      ? validateProject.validation()
+      : validateProject.validation(this.newProject);
   }
   
   public onClickRemoveObject(index: number) {
@@ -582,6 +737,11 @@ export default class HomePage extends Vue {
     this.$bvModal.show("modal-language");
   }
 
+  public onClickOpenModalProject() {
+    this.newProject = new Project();
+    this.$bvModal.show("modal-project");
+  }
+
   public handleOk(bvModalEvt: any) {
     // Prevent modal from closing
     bvModalEvt.preventDefault();
@@ -610,6 +770,23 @@ export default class HomePage extends Vue {
     this.onClickAddLang();
   }
 
+  public handleProjectOk(bvModalEvt: any) {
+    // Prevent modal from closing
+    bvModalEvt.preventDefault();
+    // Trigger submit handler
+    this.onClickAddProject();
+  }
+
+  public onClickAddProject() {
+    this.isValidateProject = true;
+    if(!this.validationProject.isValid()) {
+      return;
+    }
+    this.lstProject.push(this.newProject);
+    this.$nextTick(() => {
+      this.$bvModal.hide("modal-project");
+    });
+  }
   public onClickAddLang() {
     this.isValidateLang = true;
     if(!this.validationLang.isValid()) {
@@ -721,6 +898,45 @@ export default class HomePage extends Vue {
   public onClickRemoveLang(index: number) {
       this.lstLanguages.splice(index, 1);
     }
+
+  public onClickRemoveProject(index: number) {
+    this.lstProject.splice(index, 1);
+  }
+
+  public onClickPrint() {
+
+    const lstSkilParams = [{skillTitle: "Programing Language", lstSkillDetail: this.lstLang},
+    {skillTitle: "Technology & Framework", lstSkillDetail: this.lstTech},
+    {skillTitle: "Database System", lstSkillDetail: this.lstDatabase},
+    {skillTitle: "Development Tool", lstSkillDetail: this.lstTool},
+    {skillTitle: "Operating System", lstSkillDetail: this.lstSystem}]
+    const lstObjectParam = this.lstObject.map((data: any) => data.value);
+    const lstlstProfessionParam = this.lstProfession.map((data: any) => data.value);
+    const params = {
+      name: this.name,
+      national: this.nationality,
+      sex: this.sex,
+      marriedStatus: this.status,
+      lstObjective: lstObjectParam,
+      lstProfessionalSummary: lstlstProfessionParam,
+      lstEducationAndCertifications: this.lstEdu,
+      lstWorkExperience: this.lstWork,
+      lstSkill: lstSkilParams,
+      lstLanguage: this.lstLanguages,
+      lstProject: this.lstProject
+
+    }
+    this.axios.post(this.API.print, params).then((res: any) => {
+      const fileURL = window.URL.createObjectURL(new Blob([res.data]));
+      const fileLink = document.createElement('a');
+
+     fileLink.href = fileURL;
+     fileLink.setAttribute('download', 'file.pdf');
+     document.body.appendChild(fileLink);
+
+     fileLink.click();
+    })
+  }
 }
 </script>
 
@@ -787,6 +1003,13 @@ export default class HomePage extends Vue {
 }
 .mg25 {
   margin-top: 25px;
+}
+.h25-v4 {
+  height: 25px;
+  width: 500px;
+}
+.mg-b-15 {
+  margin-bottom: 15px;
 }
 
 #main >>> .modal-delete {
