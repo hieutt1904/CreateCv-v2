@@ -284,7 +284,7 @@
               </b-row>
               <b-row class="mg-b-15">
                 <b-col>Project Description</b-col>
-                <b-col><b-input class="h25-v4" v-model="item.projectDesc" disabled></b-input></b-col>
+                <b-col><b-textarea class="h25-v4" v-model="item.projectDesc" rows="3" disabled></b-textarea></b-col>
               </b-row>
               <b-row class="mg-b-15">
                 <b-col>Team size</b-col>
@@ -529,12 +529,13 @@
                 :title="$t(validationProject.end.msg())"
               ></b-form-datepicker>
               <label>Project Description</label>
-              <b-form-input
+              <b-form-textarea
                 v-model="newProject.projectDesc"
                 :state="validationProject.projectDesc.rule"
+                rows="3"
                 v-b-tooltip.hover.right.v-danger
                 :title="$t(validationProject.projectDesc.msg())"
-              ></b-form-input>
+              ></b-form-textarea>
               <label>Team size</label>
               <b-form-input
                 v-model="newProject.teamSize"
@@ -617,7 +618,7 @@ import { Skill } from "@/models/skill";
 import { Language } from "@/models/languages";
 import { Project } from "@/models/project";
 import { axiosCreator } from "@/base/customAxios";
-
+import moment from "moment";
 @Component({
   components: {
     AdminLayout,
@@ -916,10 +917,41 @@ export default class HomePage extends Vue {
     const lstLanguage = this.lstLanguages.map((data: Language) => {
       return {
         language: data.language,
-        level: data.level.toString(),
-        note: data
+        level: data.noteLevel,
+        note: data.note
       }
     })
+    const lstProject = this.lstProject.map((x:Project) => {
+      return  {
+        projectName: x.projectName,
+        executionTime: moment(x.start).format('MM/YYYY') + '-' + moment(x.end).format('MM/YYYY'),
+        projectDesc: x.projectDesc,
+        teamSize: x.teamSize,
+        role: x.role,
+        responsibilities: x.responsibilities,
+        programmingLanguage: x.programmingLanguage,
+        database: x.database,
+        tools: x.tools,
+        technologies: x.technologies
+      }
+    });
+
+    const lstEdu = this.lstEdu.map((x: Education) =>{
+        return {
+          fromDate: x.fromDate,
+          toDate: x.toDate,
+          content: `School: ${x.school}\nMajor: ${x.major}`
+        }
+    })
+
+    const lstWork = this.lstWork.map((x: Work) =>{
+        return {
+          fromDate: x.fromDate,
+          toDate: x.toDate,
+          content: `Company: ${x.company}\nJob title: ${x.jobTitle}`
+        }
+    })
+
     const params = {
       name: this.name,
       national: this.nationality,
@@ -927,23 +959,17 @@ export default class HomePage extends Vue {
       marriedStatus: this.status,
       lstObjective: lstObjectParam,
       lstProfessionalSummary: lstlstProfessionParam,
-      lstEducationAndCertifications: this.lstEdu,
-      lstWorkExperience: this.lstWork,
+      lstEducationAndCertifications: lstEdu,
+      lstWorkExperience: lstWork,
       lstSkill: lstSkilParams,
       lstLanguage: lstLanguage,
-      lstProject: this.lstProject
+      lstProject: lstProject
 
     }
 
-    this.axios.post(this.API.print, params).then((res: any) => {
-      const fileURL = window.URL.createObjectURL(new Blob([res.data]));
-      const fileLink = document.createElement('a');
-
-     fileLink.href = fileURL;
-     fileLink.setAttribute('download', 'file.pdf');
-     document.body.appendChild(fileLink);
-
-     fileLink.click();
+    const FileDownload = require('js-file-download');
+    this.axios.post(this.API.print, params, {responseType: 'blob'}).then((response) => {
+      FileDownload(response.data, 'report.pdf');
     })
   }
 }
