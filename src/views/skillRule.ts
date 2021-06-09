@@ -8,7 +8,7 @@ export function validation(data?: Skill): any {
           msg: () => {return result.competencies.rule === false ? 'Please fill in the information' : ''}
         },
         level: {
-            rule:  !!data && 0 < data.level && data.level <=10 ? null : false,
+            rule:  !!data && 0 < parseInt(data.level) && parseInt(data.level) <=10 ? null : false,
             msg: () => {return result.level.rule === false ? 'Please fill in the information(1 -> 10)' : ''}
           },
 

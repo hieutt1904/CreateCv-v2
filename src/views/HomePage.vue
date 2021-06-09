@@ -461,6 +461,7 @@
               <label>Level</label>
               <b-form-input
                 v-model="newSkill.level"
+                type="number"
                 :state="validationSkill.level.rule"
                 v-b-tooltip.hover.right.v-danger
                 :title="$t(validationSkill.level.msg())"
@@ -912,6 +913,13 @@ export default class HomePage extends Vue {
     {skillTitle: "Operating System", lstSkillDetail: this.lstSystem}]
     const lstObjectParam = this.lstObject.map((data: any) => data.value);
     const lstlstProfessionParam = this.lstProfession.map((data: any) => data.value);
+    const lstLanguage = this.lstLanguages.map((data: Language) => {
+      return {
+        language: data.language,
+        level: data.level.toString(),
+        note: data
+      }
+    })
     const params = {
       name: this.name,
       national: this.nationality,
@@ -922,10 +930,11 @@ export default class HomePage extends Vue {
       lstEducationAndCertifications: this.lstEdu,
       lstWorkExperience: this.lstWork,
       lstSkill: lstSkilParams,
-      lstLanguage: this.lstLanguages,
+      lstLanguage: lstLanguage,
       lstProject: this.lstProject
 
     }
+
     this.axios.post(this.API.print, params).then((res: any) => {
       const fileURL = window.URL.createObjectURL(new Blob([res.data]));
       const fileLink = document.createElement('a');
